@@ -1,10 +1,11 @@
 <!-- This takes a list of books from view.details and lists the names on their own rows -->
-{% if books %}
-    <ul>
+<ul>
+    <input type="text" name='name' id='name'> <input type="submit" value="Vote">
+{% if books %}  
     {% for book in books %}
         <li><a href="/home/detail/{{ book.book_id }}/">{{ book.book_name }}</a></li>
     {% endfor %}
-    </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+</ul>

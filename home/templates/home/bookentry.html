@@ -1,0 +1,9 @@
+<form action="{% url 'book_entry_process' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>Enter ID and Name of a book</h1></legend>
+        <input type="text" name='book_id' id='book_id'>
+        <input type="text" name='book_name' id='book_name'>
+    </fieldset>
+    <input type="submit" value="Vote">
+    </form>
