@@ -1,5 +1,10 @@
 # InventoryWebApp
-
+# to-do
+Register user\
+Login\
+Session-id database calls\
+Search books\
+Darkmode\
 ## Starting the Project:
 Install:\
 pip install virtualenv

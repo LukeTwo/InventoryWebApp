@@ -11,4 +11,6 @@ urlpatterns = [
     path('library/<int:book_id>/',views.specific, name='specific'),
     path('register_book/',views.register_book, name='register_book'),
     path('register_book_process/',views.register_book_process, name='register_book_process'),
+    path('login/',views.login_user, name='login'),
+    path('login_process/',views.login_process, name='login_process'),
 ]
