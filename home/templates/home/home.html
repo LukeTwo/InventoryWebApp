@@ -1,5 +1,33 @@
 <!-- Simple list of links to other pages on website -->
-<ul>
-    <li><a href="/library/">All books</a></li>
-    <li><a href="/register_book/">Register Books</a></li>
-</ul>
+{% extends 'home/base.html' %}
+{% block content %}
+<div class="container px-4 py-5" id="hanging-icons">
+    <h2 class="pb-2 border-bottom">Features</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="col d-flex align-items-start">
+        <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+        </div>
+        <div>
+          <h3 class="fs-2 text-body-emphasis">Reigster Book</h3>
+          <p>Reigster your new books!</p>
+          <a href="/register_book/" class="btn btn-primary">
+            Take me there
+          </a>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"/></svg>
+        </div>
+        <div>
+          <h3 class="fs-2 text-body-emphasis">View Library</h3>
+          <p>View all your registered books</p>
+          <a href="/library/" class="btn btn-primary">
+            Take me there
+          </a>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

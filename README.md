@@ -6,11 +6,13 @@ user vs anon\
 Session-id database calls\
 Search books\
 Darkmode\
-Home Directory(done)\
-View library(done)\
-View specific books(done)\
-Register books(done)\
-Login(done)\
+Home Directory\
+Fix-NavBar
+~~NavBar~~\
+~~View library~~\
+~~View specific books~~\
+~~Register books~~\
+~~Login~~\
 ## Starting the Project:
 Install:\
 pip install virtualenv
