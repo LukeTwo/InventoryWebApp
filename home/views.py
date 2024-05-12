@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import Book
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # load home page
 def home(request):
@@ -12,7 +13,8 @@ def home(request):
 # load list of all books
 def library(request):
     template = loader.get_template('home/library.html')
-    books = Book.objects.all()
+    test = request.user.id
+    books = Book.objects.filter(user = request.user.id)
     context = {
         'books': books,
     }
@@ -39,6 +41,7 @@ def register_book_process(request):
         # request.post.get will not throw an error if values arent found in the POST but default to 'None'
         book_name = request.POST.get('book_name')
         book_id = request.POST.get('book_id')
+        session_id = request.POST.get()
         
         # Create a new patient entry in the database using the Patient model
         book = Book(book_id=book_id, book_name=book_name)
@@ -70,3 +73,7 @@ def login_process(request):
             return redirect('home')
         else:
             return redirect('login')
+
+def logout_process(request):
+    logout(request)
+    return redirect('login')

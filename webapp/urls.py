@@ -13,4 +13,5 @@ urlpatterns = [
     path('register_book_process/',views.register_book_process, name='register_book_process'),
     path('login/',views.login_user, name='login'),
     path('login_process/',views.login_process, name='login_process'),
+    path('logout_process/',views.logout_process, name='logout_process'),
 ]

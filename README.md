@@ -1,18 +1,19 @@
 # InventoryWebApp
 # to-do
 Register user\
-Logout\
+~~Logout~~\
 user vs anon\
 Session-id database calls\
 Search books\
 Darkmode\
-Home Directory\
-Fix-NavBar
+~~Home Directory~~\
+~~Fix-NavBar~~\
 ~~NavBar~~\
 ~~View library~~\
 ~~View specific books~~\
 ~~Register books~~\
 ~~Login~~\
+~~Force authentication~~
 ## Starting the Project:
 Install:\
 pip install virtualenv
