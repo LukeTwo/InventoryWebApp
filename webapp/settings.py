@@ -122,6 +122,7 @@ AUTH_URLS = (
 NO_AUTH_URLS = (
     r'/admin(.*)$',
     r'/login(.*)$',
+    r'/register_user(.*)$',
 )
 
 

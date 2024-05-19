@@ -4,6 +4,7 @@ from .models import Book
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # load home page
 def home(request):
@@ -22,6 +23,7 @@ def library(request):
 
 # this takes the book_id in the url and displays a message to say which id you are viewing
 def specific(request, book_id):
+    name = Book.objects.filter(book_id = book_id)
     response = "You're looking at the book %s."
     return HttpResponse(response % book_id)
 
@@ -41,13 +43,15 @@ def register_book_process(request):
         # request.post.get will not throw an error if values arent found in the POST but default to 'None'
         book_name = request.POST.get('book_name')
         book_id = request.POST.get('book_id')
-        session_id = request.POST.get()
+        print(request.user)
+        user = request.user
         
-        # Create a new patient entry in the database using the Patient model
-        book = Book(book_id=book_id, book_name=book_name)
+        
+        # Create a new book entry in the database using the Book model
+        book = Book(book_id=book_id, book_name=book_name, user=user)
         book.save()
 
-        return HttpResponse("Data successfully inserted!")
+        return redirect('/library/')
     else:
         return HttpResponse("Invalid request method.")
 
@@ -74,6 +78,28 @@ def login_process(request):
         else:
             return redirect('login')
 
+# logs out user
 def logout_process(request):
     logout(request)
     return redirect('login')
+
+# Brings user to register_user page
+def register_user(request):
+    template = loader.get_template('home/register_user.html')
+    return HttpResponse(template.render(None, request))
+
+# Enter's user's details into dababase
+def register_user_process(request):
+    if request.method == 'POST':
+        # request.post.get will not throw an error if values arent found in the POST but default to 'None'
+        name = request.POST.get('name')
+        password = request.POST.get('pass')
+        
+        # Create a new user entry in the database using the User model
+        user = User(username=name, password=password)
+        user.save()
+
+        login(request, user)
+        return redirect('home')
+    else:
+        return redirect('register_user')

@@ -1,9 +1,9 @@
 # InventoryWebApp
 # to-do
-Register user\
+~~Register user~~\
 ~~Logout~~\
-user vs anon\
-Session-id database calls\
+~~user specific data~~\
+~~Session-id database calls(fixed using forced auth and user db calls)~~\
 Search books\
 Darkmode\
 ~~Home Directory~~\
@@ -14,6 +14,8 @@ Darkmode\
 ~~Register books~~\
 ~~Login~~\
 ~~Force authentication~~
+Lend Book
+Return Book
 ## Starting the Project:
 Install:\
 pip install virtualenv
