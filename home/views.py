@@ -1,15 +1,24 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .models import Book
+from .models import Book, Darkmode
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+'''
+This is for trying to migrate to a custom user model
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
+'''
+
+# Global variable for that all functions call to set the correct theme
+theme = {False:'light',True:'dark'}
 
 # load home page
 def home(request):
     template = loader.get_template('home/home.html')
-    return HttpResponse(template.render(None, request))
+    color = theme[Darkmode.objects.filter(user=request.user)[0].choice]
+    return HttpResponse(template.render({'color':color}, request))
 
 # load list of all books
 def library(request):
@@ -19,7 +28,8 @@ def library(request):
     context = {
         'books': books,
     }
-    return HttpResponse(template.render(context, request))
+    color = theme[Darkmode.objects.filter(user=request.user)[0].choice]
+    return HttpResponse(template.render({'color':color}, request))
 
 # this takes the book_id in the url and displays a message to say which id you are viewing
 def specific(request, book_id):
@@ -35,7 +45,8 @@ def search(request):
 def register_book(request):
     template = loader.get_template('home/register_book.html')
     context = {}
-    return HttpResponse(template.render(context, request))
+    color = theme[Darkmode.objects.filter(user=request.user)[0].choice]
+    return HttpResponse(template.render({'color':color}, request))
 
 # takes the users input from the form on register_book and creates a new DB entry
 def register_book_process(request):
@@ -58,7 +69,8 @@ def register_book_process(request):
 def BootstrapFilter(request):
     '''template = loader.get_template('home/bookentry.html')
     context = {}
-    return HttpResponse(template.render(context, request))'''
+    color = theme[Darkmode.objects.filter(user=request.user)[0].choice]
+    return HttpResponse(template.render({'color':color}, request))'''
     return render(request, "home/bootstrap_filter.html", {})
 
 # load login page
@@ -98,8 +110,19 @@ def register_user_process(request):
         # Create a new user entry in the database using the User model
         user = User(username=name, password=password)
         user.save()
-
+        darkmode = Darkmode(user=user)
+        darkmode.save()
         login(request, user)
         return redirect('home')
     else:
         return redirect('register_user')
+
+# Save the users theme preference
+def toggle_darkmode(request):
+    mode = {'light':False,'dark':True}
+    dark = Darkmode.objects.filter(user=request.user)[0]
+    dark.choice = mode[request.GET.get('color')]
+    dark.save()
+    success = 'User preference updated succesdully'
+    return HttpResponse(success)
+

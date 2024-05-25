@@ -16,4 +16,5 @@ urlpatterns = [
     path('logout_process/',views.logout_process, name='logout_process'),
     path('register_user/',views.register_user, name='register_user'),
     path('register_user_process/',views.register_user_process, name='register_user_process'),
+    path('toggle_darkmode/',views.toggle_darkmode, name='toggle_darkmode'),
 ]
