@@ -5,7 +5,7 @@
 ~~user specific data~~\
 ~~Session-id database calls(fixed using forced auth and user db calls)~~\
 Search books\
-Darkmode\
+~~Darkmode~~\
 ~~Home Directory~~\
 ~~Fix-NavBar~~\
 ~~NavBar~~\
@@ -13,8 +13,8 @@ Darkmode\
 ~~View specific books~~\
 ~~Register books~~\
 ~~Login~~\
-~~Force authentication~~
-Lend Book
+~~Force authentication~~\
+Lend Book\
 Return Book
 ## Starting the Project:
 Install:\
@@ -35,14 +35,16 @@ python manage.py runserver
 Create application:\
 python manage.py startapp name
 
-Create front end elements:\
+Create request handlers:\
 appname - views.py
 
-Add url path entries to app:\
-appname - urls - add urls
-
-Redirect from site to app:\
-projectname - urls - add urls
+2 ways to add URLs\
+1.  Add url path entries to app folder:\
+    appname - urls - add customurls\
+    The full url would be website.com/appname/customurl\
+2.  Add url path to project folder:\
+    projectname - urls - add customurls\
+    The full url would be website.com/customurl\
 
 Create app schema:\
 appname - models.py\
