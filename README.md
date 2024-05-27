@@ -4,7 +4,7 @@
 ~~Logout~~\
 ~~user specific data~~\
 ~~Session-id database calls(fixed using forced auth and user db calls)~~\
-Search books\
+~~Search books~~\
 ~~Darkmode~~\
 ~~Home Directory~~\
 ~~Fix-NavBar~~\
@@ -38,13 +38,14 @@ python manage.py startapp name
 Create request handlers:\
 appname - views.py
 
-2 ways to add URLs\
+2 ways to add URLs
 1.  Add url path entries to app folder:\
     appname - urls - add customurls\
-    The full url would be website.com/appname/customurl\
+    The full url would be website.com/appname/customurl
+    
 2.  Add url path to project folder:\
     projectname - urls - add customurls\
-    The full url would be website.com/customurl\
+    The full url would be website.com/customurl
 
 Create app schema:\
 appname - models.py\

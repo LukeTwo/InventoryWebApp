@@ -25,11 +25,13 @@ def library(request):
     template = loader.get_template('home/library.html')
     test = request.user.id
     books = Book.objects.filter(user = request.user.id)
+    color = theme[Darkmode.objects.filter(user=request.user)[0].choice]
     context = {
         'books': books,
+        'color':color,
     }
-    color = theme[Darkmode.objects.filter(user=request.user)[0].choice]
-    return HttpResponse(template.render({'color':color}, request))
+    print(books)
+    return HttpResponse(template.render(context, request))
 
 # this takes the book_id in the url and displays a message to say which id you are viewing
 def specific(request, book_id):
