@@ -14,8 +14,10 @@
 ~~Register books~~\
 ~~Login~~\
 ~~Force authentication~~\
+Delete Book\
 Lend Book\
-Return Book
+Return Book\
+Host website on AWS or Azure
 ## Starting the Project:
 Install:\
 pip install virtualenv
