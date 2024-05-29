@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.template import loader
 from .models import Book, Darkmode
 from django.shortcuts import render, redirect
@@ -35,9 +35,15 @@ def library(request):
 
 # this takes the book_id in the url and displays a message to say which id you are viewing
 def specific(request, book_id):
-    name = Book.objects.filter(book_id = book_id)
-    response = "You're looking at the book %s."
-    return HttpResponse(response % book_id)
+    try:
+        if request.user == Book.objects.filter(book_id = book_id)[0].user:
+            name = Book.objects.filter(book_id = book_id)
+            response = "You're looking at the book %s."
+            return HttpResponse(response % book_id)
+        else:
+            return HttpResponseNotFound("This is not a valid ID")
+    except:
+        return HttpResponseNotFound("This book does not exist")
 
 def search(request):
     response = "You're looking at the book %s."
