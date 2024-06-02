@@ -1,4 +1,14 @@
 # InventoryWebApp
+This is a simple webApp that functions similar to a library system but was created for a local school giving students books for the year. This app uses a multi-tenant database pattern approach. Data can only be viewed by the orgnaization who created it. 
+
+One consideration I needed to make was how to choose the primary key for the books. My first idea was to use the barcode but problem with that is the same books use the same barcode. Even if I just kept a 'no. of copies' field, if someone damaged a book, there would be no way to telling which of those copies it is, thus who damaged it. Then I thought just to use a generic auto incrementer field but the downside of this is the entity has no way of telling which physical book is which ID. I wanted to keep the process as streamlined as possible with little human work but it wasn't viable.
+
+So it left me with 2 options:\
+1. Have the school make their own barcodes for their books and simply scan those and use those as a primary key\
+2. Have the school simply manually number each book. This way we can use a barcode + number as a composite key to indentify the books.
+
+Since the person i was working with wasn't comfortable with creating their own barcode. I went with option 2. This way they could check the DB for the latest ID of a title and simply mark the new book as the next number.
+
 # to-do
 ~~Register user~~\
 ~~Logout~~\
