@@ -9,6 +9,8 @@ So it left me with 2 options:
 
 Since the person i was working with wasn't comfortable with creating their own barcode. I went with option 2. This way they could check the DB for the latest ID of a title and simply mark the new book as the next number.
 
+Another consideration was scaling the project. If I wanted to allow multiple schools use the shared DB, I would need a way to distinguish scanning the same books. This was fixed by having a custom id for each book which consistent of [request.user.id]+'Book'+[request.Barcode].
+
 # to-do
 ~~Register user~~\
 ~~Logout~~\

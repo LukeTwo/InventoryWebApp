@@ -35,21 +35,19 @@
 <table class="table table-striped" id='book-table'>
   <thead>
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Name</th>
       <th scope="col">View Book</th>
       <th scope="col">Delete Book</th>
     </tr>
   </thead>
   <tbody>
-    {% if books %}  
+{% if books %}  
     {% for book in books %}
-    <tr>
-      <th scope="row">{{ book.book_id }}</th>
-      <td>{{ book.book_name }}</td>
-      <td id='view' onclick="location.href='/library/{{ book.book_id }}/'"><a href="/library/{{ book.book_id }}/"></a>view</td>
-      <td id='delete' onclick="location.href='/library/{{ book.book_id }}/'"><a href="/library/{{ book.book_id }}/"></a>delete</td>
-    </tr>
+      <tr>
+        <td>{{ book.name }}</td>
+        <td id='view' onclick="location.href='/library/{{ book.id }}/'"><a href="/library/{{ book.id }}/"></a>view</td>
+        <td id='delete' onclick="location.href='/library/{{ book.id }}/'"><a href="/library/{{ book.id }}/"></a>delete</td>
+      </tr>
     {% endfor %}
 {% else %}
     <p>No books are available.</p>
