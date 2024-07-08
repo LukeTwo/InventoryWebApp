@@ -8,7 +8,7 @@ urlpatterns = [
     path('home/', include('home.urls')),
     path('admin/', admin.site.urls),
     path('library/', views.library),
-    path('library/<int:book_id>/',views.specific, name='specific'),
+    path('library/<barcode>/',views.specific, name='specific'),
     path('register_book/',views.register_book, name='register_book'),
     path('login/',views.login_user, name='login'),
     path('logout_process/',views.logout_process, name='logout_process'),

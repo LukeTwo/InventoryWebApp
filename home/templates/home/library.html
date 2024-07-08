@@ -45,8 +45,8 @@
     {% for book in books %}
       <tr>
         <td>{{ book.name }}</td>
-        <td id='view' onclick="location.href='/library/{{ book.id }}/'"><a href="/library/{{ book.id }}/"></a>view</td>
-        <td id='delete' onclick="location.href='/library/{{ book.id }}/'"><a href="/library/{{ book.id }}/"></a>delete</td>
+        <td id='view' onclick="location.href='/library/{{ book.barcode }}/'"><a href="/library/{{ book.barcode }}/"></a>view</td>
+        <td id='delete' onclick="location.href='/library/{{ book.barcode }}/'"><a href="/library/{{ book.barcode }}/"></a>delete</td>
       </tr>
     {% endfor %}
 {% else %}

@@ -7,9 +7,10 @@ So it left me with 2 options:
 1. Have the school make their own barcodes for their books and simply scan those and use those as a primary key
 2. Have the school simply manually number each book. This way we can use a barcode + number as a composite key to indentify the books.
 
-Since the person i was working with wasn't comfortable with creating their own barcode. I went with option 2. This way they could check the DB for the latest ID of a title and simply mark the new book as the next number.
+8/7/24 UPDATE: Client got the book seller to individually barcode each book which simplifies the process for me to use barcode as the ID
 
 Another consideration was scaling the project. If I wanted to allow multiple schools use the shared DB, I would need a way to distinguish scanning the same books. This was fixed by having a custom id for each book which consistent of [request.user.id]+'Book'+[request.Barcode].
+
 
 # to-do
 ~~Register user~~\

@@ -13,19 +13,10 @@ class Student(models.Model):
 class Book(models.Model):
     barcode = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=200)
-    copies = models.IntegerField(default=1)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    # This is just for debugging in console
-    def __str__(self):
-        return self.name
-
-class BookSKU(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE,blank=False, null=False)
-    student = models.OneToOneField(Student,on_delete=models.CASCADE, blank=True, null=True)
-
 class RentBook(models.Model):
-    book =  models.OneToOneField(BookSKU, on_delete=models.CASCADE,blank=False, null=False)
+    book =  models.OneToOneField(Book, on_delete=models.CASCADE,blank=False, null=False)
     student = models.OneToOneField(Student, on_delete=models.CASCADE, blank=False, null=False)
     transaction_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False)
@@ -34,4 +25,6 @@ class RentBook(models.Model):
 class Darkmode(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
     choice = models.BooleanField(default=False)
+
+
 

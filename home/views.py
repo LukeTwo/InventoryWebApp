@@ -35,12 +35,12 @@ def library(request):
     return HttpResponse(template.render(context, request))
 
 # this takes the book_id in the url and displays a message to say which id you are viewing
-def specific(request, book_id):
+def specific(request, barcode):
     try:
-        if request.user == Book.objects.filter(id = book_id)[0].user:
-            name = Book.objects.filter(id = book_id)
+        if request.user == Book.objects.filter(barcode = barcode)[0].user:
+            name = Book.objects.filter(barcode = barcode)
             response = "You're looking at the book %s."
-            return HttpResponse(response % book_id)
+            return HttpResponse(response % barcode)
         else:
             return HttpResponseNotFound("This is not a valid ID")
     except:
@@ -55,7 +55,7 @@ def register_book(request):
         user = request.user
         
         # Create a new book entry in the database using the Book model
-        book = Book(barcode=str(user.id)+'book'+barcode, name=name, user=user)
+        book = Book(barcode=str(user.id)+barcode, name=name, user=user)
         book.save()
 
         return redirect('/library/')
