@@ -27,11 +27,12 @@ Another consideration was scaling the project. If I wanted to allow multiple sch
 ~~Register books~~\
 ~~Login~~\
 ~~Force authentication~~\
-Delete Book\
+~~Delete Book~~\
 Lend Book\
 Return Book\
 Host website on AWS or Azure\
-Fix darkmode with admin bug
+Fix darkmode with admin bug\
+Add overwriting book warning message
 ## Starting the Project:
 Install:\
 pip install virtualenv

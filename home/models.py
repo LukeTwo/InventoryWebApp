@@ -7,19 +7,19 @@ class Student(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     contact_number = models.CharField(max_length=15)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     
 # Create your models here.
 class Book(models.Model):
     barcode = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=200)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class RentBook(models.Model):
-    book =  models.OneToOneField(Book, on_delete=models.CASCADE,blank=False, null=False)
-    student = models.OneToOneField(Student, on_delete=models.CASCADE, blank=False, null=False)
+    book =  models.ForeignKey(Book, on_delete=models.CASCADE,blank=False, null=False)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False, null=False)
     transaction_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
 
 # Creating a field for darkmode for each user which defaults to False on User creation
 class Darkmode(models.Model):

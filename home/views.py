@@ -63,7 +63,18 @@ def register_book(request):
     context = {}
     color = request.COOKIES.get('Darkmode')
     return HttpResponse(template.render({'color':color}, request))
-    
+
+def delete_book(request, barcode):
+    try:
+        print('hello')
+        if request.user == Book.objects.filter(barcode = barcode)[0].user:
+            Book.objects.filter(barcode=barcode).delete()
+            return redirect('/library/')
+        else:
+            return HttpResponseNotFound("This is not a valid ID")
+    except:
+        return HttpResponseNotFound("This book does not exist")
+       
 # load login page
 def login_user(request):
     if request.method == 'POST':

@@ -14,4 +14,5 @@ urlpatterns = [
     path('logout_process/',views.logout_process, name='logout_process'),
     path('register_user/',views.register_user, name='register_user'),
     path('toggle_darkmode/',views.toggle_darkmode, name='toggle_darkmode'),
+    path('library/<barcode>/delete/',views.delete_book, name='delete_book'),
 ]
