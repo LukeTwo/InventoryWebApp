@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.template import loader
-from .models import Book, Darkmode
+from .models import Book, Darkmode, Student, RentBook
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -127,6 +127,49 @@ def register_user(request):
         template = loader.get_template('home/register_user.html')
         return HttpResponse(template.render(None, request))
 
+# display the register student page with no context
+def register_student(request):
+    if request.method == 'POST':
+        # request.post.get will not throw an error if values arent found in the POST but default to 'None'
+        student_id = request.POST.get('student_id')
+        name = request.POST.get('name')
+        user = request.user
+        number = request.POST.get('number')
+        
+        # Create a new student entry in the database using the Student model
+        student = Student(id=str(user.id)+student_id, name=name, user=user,contact_number=number)
+        student.save()
+
+        return redirect('/student_list/')
+    template = loader.get_template('home/register_student.html')
+    context = {}
+    color = request.COOKIES.get('Darkmode')
+    return HttpResponse(template.render({'color':color}, request))
+
+# List of all students
+def student_list(request):
+    template = loader.get_template('home/students.html')
+    test = request.user.id
+    students = Student.objects.filter(user = request.user.id)
+    color = request.COOKIES.get('Darkmode')
+    context = {
+        'students': students,
+        'color':color,
+    }
+    return HttpResponse(template.render(context, request))
+
+def delete_book(request, barcode):
+    try:
+        print('hello')
+        if request.user == Book.objects.filter(barcode = barcode)[0].user:
+            Book.objects.filter(barcode=barcode).delete()
+            return redirect('/library/')
+        else:
+            return HttpResponseNotFound("This is not a valid ID")
+    except:
+        return HttpResponseNotFound("This book does not exist")
+
+
 # Save the users theme preference
 def toggle_darkmode(request):
     mode = {'light':False,'dark':True}
@@ -138,3 +181,27 @@ def toggle_darkmode(request):
     response.set_cookie('Darkmode', color)
     return response
 
+def book_out(request):
+    if request.method == 'POST':
+        
+        
+        # request.post.get will not throw an error if values arent found in the POST but default to 'None'
+        student_id = request.POST.get('student_id')
+        barcode = request.POST.get('barcode')
+        user = request.user
+        
+        book = Book.objects.filter(user=user,barcode=str(user.id)+barcode)
+        student =  Student.objects.filter(user=user,id = student_id)
+        print('hello')
+        if not student.exists():
+            return redirect('/home/')
+        # Create a new book entry in the database using the Book model
+        transaction = RentBook(book=book, student=student, user = user)
+        transaction.save()
+
+        #   to-do = CHANGE THIS TO REDIRECT TO A 'LOANED BOOKS' PAGE CONTAINING ALL BOOKS CURRENTLY OUT
+        return redirect('/library/')
+    template = loader.get_template('home/book_out.html')
+    context = {}
+    color = request.COOKIES.get('Darkmode')
+    return HttpResponse(template.render({'color':color}, request))

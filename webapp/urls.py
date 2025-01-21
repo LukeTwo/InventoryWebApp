@@ -15,4 +15,7 @@ urlpatterns = [
     path('register_user/',views.register_user, name='register_user'),
     path('toggle_darkmode/',views.toggle_darkmode, name='toggle_darkmode'),
     path('library/<barcode>/delete/',views.delete_book, name='delete_book'),
+    path('register_student/',views.register_student, name='register_student'),
+    path('student_list/',views.student_list, name='student_list'),
+    path('book_out/',views.book_out, name='book_out'),
 ]
