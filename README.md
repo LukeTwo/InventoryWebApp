@@ -9,7 +9,7 @@ So it left me with 2 options:
 
 8/7/24 UPDATE: Client got the book seller to individually barcode each book which simplifies the process for me to use barcode as the ID
 
-Another consideration was scaling the project. If I wanted to allow multiple schools use the shared DB, I would need a way to distinguish scanning the same books. This was fixed by having a custom id for each book which consistent of [request.user.id]+'Book'+[request.Barcode].
+Another consideration was scaling the project. If I wanted to allow multiple schools use the shared DB, I would need a way to distinguish scanning the same books. This was fixed by having a custom id for each book which consisted of [request.user.id]+[request.Barcode].
 
 
 # to-do
@@ -30,8 +30,8 @@ Another consideration was scaling the project. If I wanted to allow multiple sch
 ~~Delete Book~~\
 ~~Register Student~~\
 ~~View student list~~\
-View list of books a student has out\
-Lend Book\
+~~View list of books a student has out~~\
+~~Lend Book~~\
 Return Book\
 Host website on AWS or Azure\
 Fix darkmode with admin bug\

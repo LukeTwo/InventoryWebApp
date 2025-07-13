@@ -35,12 +35,19 @@ def library(request):
     return HttpResponse(template.render(context, request))
 
 # this takes the book_id in the url and displays a message to say which id you are viewing
-def specific(request, barcode):
+def specific_book(request, barcode):
     try:
         if request.user == Book.objects.filter(barcode = barcode)[0].user:
-            name = Book.objects.filter(barcode = barcode)
-            response = "You're looking at the book %s."
-            return HttpResponse(response % barcode)
+            print('test')
+            book = Book.objects.filter(user=request.user,barcode=barcode)[0]
+            print('test')
+            student =  RentBook.objects.filter(user=request.user,book=book)
+            print(student)
+            if student:
+                response = f"You're looking at the book %s. \n This book is loaned out to {student[0].student.name}({student[0].student.id})"
+            else:
+                response = "You're looking at the book %s. \n This book is currently available"
+            return HttpResponse(response % book.barcode)
         else:
             return HttpResponseNotFound("This is not a valid ID")
     except:
@@ -158,6 +165,19 @@ def student_list(request):
     }
     return HttpResponse(template.render(context, request))
 
+def student_book_list(request, id):
+    template = loader.get_template('home/student_books.html')
+    student = Student.objects.filter(id=id)[0]
+    books = RentBook.objects.filter(student = student)
+    color = request.COOKIES.get('Darkmode')
+    context = {
+        'books': books,
+        'color':color,
+    }
+    for book in books:
+        print(book.book.name)
+    return HttpResponse(template.render(context, request))
+
 def delete_book(request, barcode):
     try:
         print('hello')
@@ -189,11 +209,9 @@ def book_out(request):
         student_id = request.POST.get('student_id')
         barcode = request.POST.get('barcode')
         user = request.user
-        
-        book = Book.objects.filter(user=user,barcode=str(user.id)+barcode)
-        student =  Student.objects.filter(user=user,id = student_id)
-        print('hello')
-        if not student.exists():
+        book = Book.objects.filter(user=user,barcode=str(user.id)+barcode)[0]
+        student =  Student.objects.filter(user=user,id = str(user.id)+student_id)[0]
+        if not student:
             return redirect('/home/')
         # Create a new book entry in the database using the Book model
         transaction = RentBook(book=book, student=student, user = user)
