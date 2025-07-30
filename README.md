@@ -32,7 +32,7 @@ Another consideration was scaling the project. If I wanted to allow multiple sch
 ~~View student list~~\
 ~~View list of books a student has out~~\
 ~~Lend Book~~\
-Return Book\
+~~Return Book~~\
 Host website on AWS or Azure\
 Fix darkmode with admin bug\
 Add overwriting book warning message

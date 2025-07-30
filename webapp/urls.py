@@ -19,4 +19,5 @@ urlpatterns = [
     path('student_list/',views.student_list, name='student_list'),
     path('student_books/<id>/',views.student_book_list, name='student_book_list'),
     path('book_out/',views.book_out, name='book_out'),
+    path('return_book/',views.return_book, name='return_book'),
 ]

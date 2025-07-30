@@ -223,3 +223,23 @@ def book_out(request):
     context = {}
     color = request.COOKIES.get('Darkmode')
     return HttpResponse(template.render({'color':color}, request))
+
+#This will delete the transaction so the book will be available to use again
+def return_book(request):
+    if request.method == 'POST':
+        # request.post.get will not throw an error if values arent found in the POST but default to 'None'
+        barcode = request.POST.get('barcode')
+        user = request.user
+        book = Book.objects.filter(user=user,barcode=str(user.id)+barcode)[0]
+
+        # Create a new book entry in the database using the Book model
+        transaction = RentBook.objects.filter(book=book, user = user)[0]
+        if not transaction:
+            return redirect('/library/')
+        transaction.delete()
+
+        return redirect('/library/')
+    template = loader.get_template('home/return_book.html')
+    context = {}
+    color = request.COOKIES.get('Darkmode')
+    return HttpResponse(template.render({'color':color}, request))
